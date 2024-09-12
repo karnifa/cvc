@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    hikari:
+      poolName: orc-springboot-payment-methods
+      connection-test-query: SELECT 1 FROM DUAL
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 2000000
+      connection-timeout: 30000
+      auto-commit: false
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: oracle.jdbc.OracleDriver
+  cloud:
+    inetutils:
+      timeout-seconds: 1
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      enabled: true
+      config:
+        enabled: true
+        prefixes:
+          - financial-backoffice
+        default-context: financial-services-payments-methods/orc-springboot-payment-methods
+        format: key-value
+        watch:
+          enabled: true
